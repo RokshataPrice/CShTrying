@@ -47,6 +47,9 @@ namespace ConsoleApplication1
         }
 
         //вычисляет по текущей дате следующую 
+        //Вопрос к себе: обработку исключения тут как-то добавить? Или во внещней функции? 
+        //ХЗ, как тут добавить обработку: если происходит исключение, то нельзя возвращать дату.
+        //Хех, а вот и этот великолепный случай, где понадобилась бы монада Maybe из хаскеля
         public DateTime NextDate(DateTime date)
         {
             int year, month, day;
@@ -354,7 +357,34 @@ namespace ConsoleApplication1
 //===================================================================================================================
         //сравнить два введенных с клавиатуры числа. Необходимо определить, какое число меньше.Если числа равны, вывести в консоль
         //сообщение: «Числа равны»;
+        public void CompareTwoNumbers()
+        {
+            int num1, num2;
+            const int tries = 5;
+            for (int i = 0; i < tries; i++)
+            {
+                Console.WriteLine("Введите два целых числа");
+                if (int.TryParse(Console.ReadLine(), out num1))
+                {
+                    if (int.TryParse(Console.ReadLine(), out num2))
+                    {
+                        string mess = "Меньшее число: {0}";
+                        if (num1 < num2)
+                            Console.WriteLine(mess, num1);
+                        else if (num2 < num1)
+                            Console.WriteLine(mess, num2);
+                        else
+                            Console.WriteLine("Числа равны");
 
+
+                    }
+                    else Console.WriteLine("Введено некорректное значение: вводимое вами значение должно быть целым числом");
+                }
+                else Console.WriteLine("Введено некорректное значение: вводимое вами значение должно быть целым числом");
+                Console.WriteLine("Осталось {0} попыток", tries - 1 - i);
+            }
+            Console.WriteLine("Количество попыток исчерпано");
+        }
 
     }
 }
