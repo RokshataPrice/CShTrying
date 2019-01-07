@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 //TODO: юнит-тестирование
 //TODO: тестирование должно быть DDT
@@ -382,6 +383,55 @@ namespace ConsoleApplication1
                 }
                 else Console.WriteLine("Введено некорректное значение: вводимое вами значение должно быть целым числом");
                 Console.WriteLine("Осталось {0} попыток", tries - 1 - i);
+            }
+            Console.WriteLine("Количество попыток исчерпано");
+        }
+        
+//===================================================================================================================
+        //Написать программу деления двух обыкновенных дробей (числители и знаменатели дробей — параметры ввода). 
+        //Предусмотреть случай, когда знаменатель дроби равен нулю.
+
+        //Первый УПОРОТЫЙ (ТАК ДЕЛАТЬ НЕЛЬЗЯ) вариант с регулярками и сплитом, чтоб вспомнить работу с регулярками и сплитом
+        private bool StringIsFraction(string str)
+        {
+            return Regex.IsMatch(str, @"\d+/\d+", RegexOptions.None);
+        }
+
+        public void FractionsDivision()
+        {
+            int tries = 5;
+            string frac1, frac2;
+            for (int i = 0; i < tries; i++)
+            {
+                Console.WriteLine("Пожалуйста, введите две дроби. Формат записи \"число/число\". После ввода кажждой дроби нажмите Enter.");
+                try
+                {
+                    frac1 = Console.ReadLine();
+                    if (StringIsFraction(frac1))
+                    {
+                        frac2 = Console.ReadLine();
+                        if (StringIsFraction(frac2))
+                        {
+                            string [] fracparts1 = frac1.Split('/');
+                            string [] fracparts2 = frac2.Split('/');
+                            try
+                            {
+                                Pair<int, int> divfrac = FractionsMult(int.Parse(fracparts1[0]), int.Parse(fracparts1[1]), int.Parse(fracparts2[1]), int.Parse(fracparts2[0]));
+                                Console.WriteLine("Результат деления дробей: {0}/{1}", divfrac.First, divfrac.Second);
+                            }
+                            catch {
+                                Console.WriteLine("Произошла ошибка парсинга строки в целое число");
+                            }
+                        }
+                        else
+                            Console.WriteLine("Введено неверное значение.");
+                    }
+                    else
+                        Console.WriteLine("Введено неверное значение.");
+                }
+                catch {
+                    Console.WriteLine("Произошла ошибка проверки валидности введённых значений");
+                }
             }
             Console.WriteLine("Количество попыток исчерпано");
         }
