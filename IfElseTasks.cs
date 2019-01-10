@@ -397,7 +397,7 @@ namespace ConsoleApplication1
             return Regex.IsMatch(str, @"\d+/\d+", RegexOptions.None);
         }
 
-        public void FractionsDivision()
+        public void BadFractionsDivision()
         {
             int tries = 5;
             string frac1, frac2;
@@ -434,6 +434,11 @@ namespace ConsoleApplication1
                 }
             }
             Console.WriteLine("Количество попыток исчерпано");
+        }
+
+        public void FractionsDivision()
+        {
+
         }
 
     }
